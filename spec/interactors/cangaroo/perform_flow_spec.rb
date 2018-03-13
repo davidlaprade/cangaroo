@@ -9,7 +9,8 @@ describe Cangaroo::PerformFlow do
     let(:interactors) do
       [Cangaroo::ValidateJsonSchema,
        Cangaroo::CountJsonObject,
-       Cangaroo::PerformJobs]
+       Cangaroo::PerformJobs,
+       Cangaroo::PersistParameters]
     end
 
     it { is_expected.to eql interactors }
