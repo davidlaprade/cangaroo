@@ -20,6 +20,7 @@ module Cangaroo
       return unless process_response
 
       command = Cangaroo::PerformFlow.call(
+        flow: self,
         source_connection: destination_connection,
         json_body: response,
         jobs: Rails.configuration.cangaroo.jobs.reject{ |job| job == self.class }

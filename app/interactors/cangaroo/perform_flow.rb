@@ -4,6 +4,7 @@ module Cangaroo
 
     organize ValidateJsonSchema,
              CountJsonObject,
-             PerformJobs
+             PerformJobs,
+             PersistParameters
   end
 end
