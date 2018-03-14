@@ -5,10 +5,7 @@ module Cangaroo
     def call
       return if request_params.empty?
       unless connection.update(parameters: new_params)
-        context.fail!(
-          message: "could not update #{context.flow.class.name} parameters: #{connection.errors.full_messages.to_sentence}",
-          error_code: 500
-        )
+        fail_context!
       end
     end
 
@@ -16,6 +13,7 @@ module Cangaroo
 
     def new_params
       persisted_params
+        .with_indifferent_access
         .merge(request_params)
         .slice(*persisted_params.keys)
     end
@@ -25,12 +23,18 @@ module Cangaroo
     end
 
     def persisted_params
-      connection.parameters.stringify_keys
+      connection.parameters
     end
 
     def request_params
-      context.parameters.to_h.select{|k,v| v.present?}.stringify_keys
+      context.parameters.to_h.select{|k,v| v.present?}
     end
 
+    def fail_context!
+      context.fail!(
+        message: "could not update #{context.flow.class.name} parameters: #{connection.errors.full_messages.to_sentence}",
+        error_code: 500
+      )
+    end
   end
 end
