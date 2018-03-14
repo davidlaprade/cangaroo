@@ -90,6 +90,7 @@ RSpec.describe Cangaroo::PollJob, type: :job do
         allow_any_instance_of(Cangaroo::Webhook::Client)
           .to receive(:post)
           .and_return(parse_fixture('json_payload_ok.json'))
+        allow_any_instance_of(Cangaroo::Webhook::Client).to receive(:post).and_return(parse_fixture('json_payload_ok.json'))
 
         allow(Cangaroo::PerformFlow).to receive(:call).and_return(double(success?: false,
                                                                          message: 'bad failure'))

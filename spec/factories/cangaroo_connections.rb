@@ -1,6 +1,6 @@
 require 'securerandom'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :cangaroo_connection, class: 'Cangaroo::Connection' do
     name :store
     url 'www.store.com'

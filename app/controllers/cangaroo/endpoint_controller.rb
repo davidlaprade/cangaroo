@@ -33,7 +33,7 @@ module Cangaroo
     def ensure_json_request
       return if request.headers['Content-Type'] == 'application/json'
 
-      render nothing: true, status: 406
+      head 406
     end
 
     def key
