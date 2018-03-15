@@ -78,6 +78,13 @@ describe Cangaroo::PersistParameters do
         expect(context).to be_failure
       end
     end
+    context 'different request parameters' do
+      let(:parameters) { { "different" => "param" } }
+      it 'does not update the DB' do
+        expect(connection.parameters.keys).to_not include(parameters.keys.first)
+        expect{ subject.call }.to_not change{ connection.reload.parameters.with_indifferent_access }
+      end
+    end
     it 'does not update the DB if there are no request params' do
       expect(parameters).to be_empty
       expect{ subject.call }.to_not change{ connection.reload.parameters }

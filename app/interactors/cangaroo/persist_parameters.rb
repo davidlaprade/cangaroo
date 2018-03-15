@@ -3,7 +3,7 @@ module Cangaroo
     include Interactor
 
     def call
-      return if request_params.empty?
+      return if request_params.empty? || new_params.empty?
       unless connection.update(parameters: new_params)
         fail_context!
       end
